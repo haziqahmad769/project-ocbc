@@ -1,0 +1,151 @@
+Detailed User Stories for Customers:
+
+**Priority Rating:**
+
+*** - Must Have
+** - Good to Have (Optional)
+* - Nice to Have
+
+1. *** As a user, I want to create posts about business opportunities or entrepreneur programs, including text and optional images, so that I can share information with the community. **(FE & BE)**
+   - **Acceptance Criteria:**
+     - Users can input text and optionally upload an image.
+     - The post should be saved with a timestamp.
+   
+2. *** As a user, I want to comment on posts to ask for more information or provide feedback. **(FE & BE)**
+   - **Acceptance Criteria:**
+     - Users can write and submit comments on any post.
+     - Comments should be displayed below the post with a timestamp.
+   
+3. ** As a user, I want to like posts so that I can easily access them later. **(FE & BE)**
+   - **Acceptance Criteria:**
+     - Users can click a like button on a post.
+     - The like count should increment and decrement appropriately.
+     - Users can view a list of liked posts.
+
+4. *** As a user, I want to search for posts using keywords to quickly find relevant information. **(FE & BE)**
+   - **Acceptance Criteria:**
+     - Users can input keywords in a search bar.
+     - The system returns a list of posts matching the keywords.
+
+5. *** As a user, I want to delete my posts to correct misinformation or remove outdated content. **(FE & BE)**
+   - **Acceptance Criteria:**
+     - Users can delete their posts from their profile or the post view.
+
+6. ** As a user, I want to follow other users with similar business locations or niches to stay updated on their posts. **(FE & BE)**
+   - **Acceptance Criteria:**
+     - Users can follow/unfollow other users.
+     - Followed users' posts appear in the user’s feed.
+
+7. * As a user, I want to send private messages to users I follow to facilitate networking and collaboration. **(FE & BE)**
+   - **Acceptance Criteria:**
+     - Users can send and receive private messages.
+     - Message threads should be displayed in a conversation format.
+
+8. * As a user, I want to receive email notifications when someone comments on my post or sends me a message to stay informed. **(BE)**
+   - **Acceptance Criteria:**
+     - Email notifications are sent for comments on posts and private messages.
+     - Users can toggle notification preferences.
+
+
+Detailed User Stories for Admins:
+
+1. *** As an admin, I want to delete inappropriate posts and comments to maintain community standards. **(FE & BE)**
+   - **Acceptance Criteria:**
+     - Admins can view a list of reported posts and comments.
+     - Admins can delete or hide inappropriate content.
+   
+2. ** As an admin, I want to post advertisements to generate revenue for the platform. **(FE & BE)**
+   - **Acceptance Criteria:**
+     - Admins can create, update, and delete advertisements.
+     - Advertisements are displayed in the user feed or sidebar.
+
+
+Detailed Database Design:
+
+1. **Users:**
+   - `id`: Primary key, unique identifier for each user.
+   - `username`: Unique handle for each user.
+   - `full_name`: Full name of the user.
+   - `password`: Hashed password.
+   - `email`: User's email address.
+   - `business_location`: Business location of the user.
+   - `business_type`: Business type or niche.
+   - `phone_number`: Contact number.
+   - `link`: Optional business or personal link.
+   - `profile_img`: URL to profile image.
+   - `bio`: Short biography.
+   - `is_admin`: Boolean indicating if the user is an admin.
+
+2. **Followers:**
+   - `id`: Primary key.
+   - `user_id`: Foreign key referencing Users.
+   - `follower_id`: Foreign key referencing Users.
+   - **Indexing**: Index on `user_id` and `follower_id` for quick lookups.
+
+3. **Posts:**
+   - `id`: Primary key.
+   - `user_id`: Foreign key referencing Users.
+   - `text`: Post content.
+   - `img`: Optional image URL.
+   - `likes_count`: Number of likes on the post.
+   - `created_at`: Timestamp of post creation.
+   - `updated_at`: Timestamp of last update.
+
+4. **Comments:**
+   - `id`: Primary key.
+   - `post_id`: Foreign key referencing Posts.
+   - `user_id`: Foreign key referencing Users.
+   - `text`: Comment content.
+   - `created_at`: Timestamp of comment creation.
+
+5. **Notifications:**
+   - `id`: Primary key.
+   - `user_id`: Foreign key referencing Users.
+   - `type`: Enum (e.g., "comment", "message").
+   - `related_id`: ID of the related entity (post, comment, or message).
+   - `read`: Boolean indicating if the notification has been read.
+   - `created_at`: Timestamp of notification creation.
+
+
+Detailed API Endpoints:
+
+1. **GET /posts**
+   - **Description**: Retrieve all posts with pagination support.
+   - **Query Parameters**: `page`, `limit`.
+   
+2. **POST /posts**
+   - **Description**: Create a new post.
+   - **Request Body**: `{ "text": "string", "img": "string (optional)" }`.
+   
+3. **PUT /posts/{id}**
+   - **Description**: Update a post.
+   - **Request Body**: `{ "text": "string", "img": "string (optional)" }`.
+   
+4. **DELETE /posts/{id}**
+   - **Description**: Delete a post by ID.
+
+5. **GET /comments/{post_id}**
+   - **Description**: Retrieve comments for a specific post.
+   
+6. **POST /comments/{post_id}**
+   - **Description**: Add a comment to a post.
+   - **Request Body**: `{ "text": "string" }`.
+   
+7. **DELETE /comments/{id}**
+   - **Description**: Delete a comment by ID.
+   
+8. **POST /follow/{user_id}**
+   - **Description**: Follow a user by their ID.
+   
+9. **DELETE /follow/{user_id}**
+   - **Description**: Unfollow a user by their ID.
+   
+10. **GET /search**
+    - **Description**: Search for posts by keywords.
+    - **Query Parameters**: `q` (keyword).
+    
+11. **GET /notifications**
+    - **Description**: Retrieve a list of notifications for the logged-in user.
+    
+12. **PUT /notifications/{id}**
+    - **Description**: Mark a notification as read.
