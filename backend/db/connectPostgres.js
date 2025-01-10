@@ -32,6 +32,7 @@ export const pool = new Pool({
       await createUsersTable();
       await createFilesTable();
       
+      
     } catch (error) {
       //   promise is rejected
       console.error(error);

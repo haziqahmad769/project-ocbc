@@ -22,8 +22,8 @@ import { pool } from "../db/connectPostgres.js";
 const query = `
 CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
-  username VARCHAR(255) UNIQUE NOT NULL,
-  full_name VARCHAR(255) NOT NULL,
+  username VARCHAR(255),
+  full_name VARCHAR(255),
   password VARCHAR(255) NOT NULL,
   email VARCHAR(255) UNIQUE NOT NULL,
   profile_img INT REFERENCES files(id),
