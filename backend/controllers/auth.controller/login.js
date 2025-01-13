@@ -2,16 +2,15 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { pool } from "../../db/connectPostgres.js";
 import { validateEmail } from "../../utils/helper.js";
-import "dotenv/config";
 
-const login = async (req, res) => {
+export const login = async (req, res) => {
   try {
     const email = req.body.email;
     const password = req.body.password;
 
     if (!email || !password) {
       return res.status(400).json({
-        message: "BPassword and email is required",
+        message: "Password and email are required",
       });
     }
 
@@ -52,10 +51,18 @@ const login = async (req, res) => {
 
     const secretKey = process.env.JWT_SECRET_KEY;
 
-    const token = jwt.sign(data, secretKey);
+    const token = jwt.sign(data, secretKey, {
+      expiresIn: "15d",
+    });
+
+    res.cookie("jwt", token, {
+      maxAge: 15 * 24 * 60 * 60 * 1000, //MS
+      httpOnly: true, // prevent XSS attacks cross-site scripting attacks
+      sameSite: "strict", // CSRF attacks cross-site request forgery attacks
+    });
 
     res.status(200).json({
-      message: "Token created",
+      message: "Login successfully",
       token: token,
     });
   } catch (error) {
@@ -65,4 +72,15 @@ const login = async (req, res) => {
   }
 };
 
-export default login;
+export const logout = async (req, res) => {
+  try {
+    res.cookie("jwt", "", { maxAge: 0 });
+    res.status(200).json({
+      message: "Logged out successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+};

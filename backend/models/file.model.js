@@ -12,7 +12,6 @@ const query = `CREATE TABLE IF NOT EXISTS files (
     size INT
     )`;
 
-// create files table
 async function createFilesTable() {
   try {
     await pool.query(query);

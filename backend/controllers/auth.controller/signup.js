@@ -2,14 +2,16 @@ import { pool } from "../../db/connectPostgres.js";
 import { validateEmail } from "../../utils/helper.js";
 import bcrypt from "bcrypt";
 
-const register = async (req, res) => {
+const signup = async (req, res) => {
   try {
     const password = req.body.password;
     const email = req.body.email;
+    const username = req.body.username;
+    const fullName = req.body.fullName;
 
-    if (!password || !email) {
+    if (!password || !email || !username || !fullName) {
       return res.status(400).json({
-        message: "Password and email is required",
+        message: "All fields is required",
       });
     }
 
@@ -30,22 +32,41 @@ const register = async (req, res) => {
     const dbResEmail = await pool.query(checkEmailQuery, [email]);
     if (dbResEmail.rows.length > 0) {
       return res.status(400).json({
-        message: " Email already exist",
+        message: "Email already exists",
+      });
+    }
+
+    const checkUsernameQuery = `
+    SELECT * 
+    FROM users
+    WHERE username = $1
+    `;
+
+    // check if username already exist
+    const dbResUsername = await pool.query(checkUsernameQuery, [username]);
+    if (dbResUsername.rows.length > 0) {
+      return res.status(400).json({
+        message: "Username already exists",
       });
     }
 
     const insertNewUser = `
-    INSERT INTO users (password, email)
-    VALUES ($1, $2)
+    INSERT INTO users (password, email,username, full_name)
+    VALUES ($1, $2, $3, $4)
     `;
 
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(password, salt);
 
-    const dbRes = await pool.query(insertNewUser, [hashedPassword, email]);
+    const dbRes = await pool.query(insertNewUser, [
+      hashedPassword,
+      email,
+      username,
+      fullName,
+    ]);
 
     return res.status(200).json({
-      message: "User is created",
+      message: "User registered successfully",
     });
   } catch (error) {
     console.error(error);
@@ -53,4 +74,4 @@ const register = async (req, res) => {
   }
 };
 
-export default register;
+export default signup;
