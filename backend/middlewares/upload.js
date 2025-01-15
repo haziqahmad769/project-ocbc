@@ -1,4 +1,4 @@
-import multer from "multer"
+import multer from "multer";
 import path from "path";
 import crypto from "crypto";
 
@@ -14,4 +14,4 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
- export default upload
+export default upload;
