@@ -5,6 +5,7 @@ const query = `CREATE TABLE IF NOT EXISTS notifications (
     from_user_id INT REFERENCES users(id) ON DELETE CASCADE,
     to_user_id INT REFERENCES users(id) ON DELETE CASCADE,
     type VARCHAR(50) NOT NULL CHECK (type IN ('follow', 'like')),
+    post_id INT REFERENCES posts(id),
     read BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()

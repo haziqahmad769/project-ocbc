@@ -18,7 +18,7 @@ postRouter.delete("/:id", deletePost);
 postRouter.get("/all", getAllPosts);
 postRouter.get("/user/:username", getUserPosts);
 postRouter.post("/:id/comment", commentOnPost);
-postRouter.get("/:id/like", likeUnlikePost);
+postRouter.post("/:id/like", likeUnlikePost);
 postRouter.get("/liked/:id", getLikedPosts);
 
 export default postRouter;

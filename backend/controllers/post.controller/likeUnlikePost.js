@@ -16,6 +16,8 @@ const likeUnlikePost = async (req, res) => {
       });
     }
 
+    const postOwnerId = postResult.rows[0].user_id; // The owner of the post
+
     const likeCheckQuery = `
         SELECT * FROM post_likes WHERE post_id = $1 AND user_id = $2
         `;
@@ -39,11 +41,25 @@ const likeUnlikePost = async (req, res) => {
             `;
 
       await pool.query(likeInsertQuery, [postId, userId]);
+
+      if (userId !== postOwnerId) {
+        const notificationInsertQuery = `
+          INSERT INTO notifications (from_user_id, to_user_id, type, read, post_id)
+          VALUES ($1, $2, 'like', FALSE, $3)
+        `;
+        await pool.query(notificationInsertQuery, [
+          userId,
+          postOwnerId,
+          postId,
+        ]);
+      }
+
       return res.status(200).json({
         message: "Post liked",
       });
     }
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       message: "Internal server error",
     });

@@ -55,6 +55,13 @@ const followUnfollowUser = async (req, res) => {
             `;
 
       await pool.query(followQuery, [userId, targetId]);
+
+      const notificationInsertQuery = `
+        INSERT INTO notifications (from_user_id, to_user_id, type, read)
+        VALUES ($1, $2, 'follow', FALSE)
+      `;
+      await pool.query(notificationInsertQuery, [userId, targetId]);
+
       return res.status(200).json({
         message: "User followed successfully",
       });
