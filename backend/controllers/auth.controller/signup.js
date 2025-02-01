@@ -8,10 +8,21 @@ const signup = async (req, res) => {
     const email = req.body.email;
     const username = req.body.username;
     const fullName = req.body.fullName;
+    const phoneNumber = req.body.phoneNumber;
+    const businessType = req.body.businessType;
+    const businessLocation = req.body.businessLocation;
 
-    if (!password || !email || !username || !fullName) {
+    if (
+      !password ||
+      !email ||
+      !username ||
+      !fullName ||
+      !phoneNumber ||
+      !businessType ||
+      !businessLocation
+    ) {
       return res.status(400).json({
-        message: "All fields is required",
+        message: "All fields are required",
       });
     }
 
@@ -51,8 +62,8 @@ const signup = async (req, res) => {
     }
 
     const insertNewUser = `
-    INSERT INTO users (password, email,username, full_name)
-    VALUES ($1, $2, $3, $4)
+    INSERT INTO users (password, email, username, full_name, phone_number, business_type, business_location)
+    VALUES ($1, $2, $3, $4, $5, $6, $7)
     `;
 
     const salt = bcrypt.genSaltSync(10);
@@ -63,6 +74,9 @@ const signup = async (req, res) => {
       email,
       username,
       fullName,
+      phoneNumber,
+      businessType,
+      businessLocation,
     ]);
 
     return res.status(200).json({

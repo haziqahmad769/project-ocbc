@@ -9,6 +9,7 @@ import Sidebar from "./components/common/Sidebar";
 import { Toaster } from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "./components/common/LoadingSpinner";
+import UsersListPage from "./pages/users/UsersListPage";
 
 function App() {
   const { data: authUser, isLoading } = useQuery({
@@ -74,6 +75,10 @@ function App() {
         <Route
           path="/profile/:username"
           element={authUser ? <ProfilePage /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/users"
+          element={authUser ? <UsersListPage /> : <Navigate to="/login" />}
         />
       </Routes>
       <Toaster />

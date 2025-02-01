@@ -12,6 +12,9 @@ const updateUser = async (req, res) => {
     const newPassword = req.body.newPassword;
     const bio = req.body.bio;
     const link = req.body.link;
+    const phoneNumber = req.body.phoneNumber;
+    const businessType = req.body.businessType;
+    const businessLocation = req.body.businessLocation;
 
     let profileImgId = null;
 
@@ -74,9 +77,12 @@ const updateUser = async (req, res) => {
         bio = COALESCE($5, bio),
         link = COALESCE($6, link),
         profile_img = COALESCE($7, profile_img),
+        phone_number = COALESCE($8, phone_number),
+        business_type = COALESCE($9, business_type),
+        business_location = COALESCE($10, business_location),
         updated_at = NOW()
-    WHERE id = $8
-    RETURNING id, full_name, username, email, bio, link, profile_img
+    WHERE id = $11
+    RETURNING id, full_name, username, email, bio, link, profile_img, phone_number, business_type, business_location
     `;
 
     const updatedResult = await pool.query(updateQuery, [
@@ -87,6 +93,9 @@ const updateUser = async (req, res) => {
       bio || null,
       link || null,
       profileImgId || null,
+      phoneNumber || null,
+      businessType || null,
+      businessLocation || null,
       userId,
     ]);
     res.status(200).json(updatedResult.rows[0]);

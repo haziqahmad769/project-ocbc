@@ -1,5 +1,4 @@
-import { CiImageOn } from "react-icons/ci";
-import { BsEmojiSmileFill } from "react-icons/bs";
+import { FaImage } from "react-icons/fa6";
 import { useRef, useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -89,14 +88,14 @@ const CreatePost = () => {
   return (
     <div className="flex p-4 items-start gap-4 border-b border-gray-700">
       <div className="avatar">
-        <div className="w-8 rounded-full">
+        <div className="w-8 h-8 rounded-full">
           <img src={authUser.profileImg || "/avatar-placeholder.png"} />
         </div>
       </div>
       <form className="flex flex-col gap-2 w-full" onSubmit={handleSubmit}>
         <textarea
           className="textarea w-full p-0 text-lg resize-none border-none focus:outline-none  border-gray-800"
-          placeholder="What is happening?!"
+          placeholder="Share with everyone"
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
@@ -118,11 +117,10 @@ const CreatePost = () => {
 
         <div className="flex justify-between border-t py-2 border-t-gray-700">
           <div className="flex gap-1 items-center">
-            <CiImageOn
+            <FaImage
               className="fill-primary w-6 h-6 cursor-pointer"
               onClick={() => imgRef.current.click()}
             />
-            <BsEmojiSmileFill className="fill-primary w-5 h-5 cursor-pointer" />
           </div>
           <input
             type="file"

@@ -3,8 +3,8 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import LoadingSpinner from "../../components/common/LoadingSpinner";
 
 import { IoSettingsOutline } from "react-icons/io5";
-import { FaUser } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa6";
+import { FaUserAstronaut } from "react-icons/fa";
+import { PiHeartFill } from "react-icons/pi";
 import toast from "react-hot-toast";
 
 const NotificationPage = () => {
@@ -80,9 +80,8 @@ const NotificationPage = () => {
   return (
     <>
       <div className="flex-[4_4_0] border-l border-r border-gray-700 min-h-screen">
-        <div className="flex justify-between items-center p-4 border-b border-gray-700">
-          <p className="font-bold">Notifications</p>
-          <div className="dropdown ">
+        <div className="flex justify-end items-center p-4 border-b border-gray-700">
+          <div className="dropdown  dropdown-end">
             <div tabIndex={0} role="button" className="m-1">
               <IoSettingsOutline className="w-4" />
             </div>
@@ -91,7 +90,7 @@ const NotificationPage = () => {
               className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
-                <a onClick={deleteNotifications}>Delete all notifications</a>
+                <a onClick={deleteNotifications}>Delete all</a>
               </li>
             </ul>
           </div>
@@ -102,16 +101,16 @@ const NotificationPage = () => {
           </div>
         )}
         {notifications?.length === 0 && (
-          <div className="text-center p-4 font-bold">No notifications 🤔</div>
+          <div className="text-center p-4 font-bold">No notifications</div>
         )}
         {notifications?.map((notification) => (
           <div className="border-b border-gray-700" key={notification.id}>
             <div className="flex gap-2 p-4">
               {notification.type === "follow" && (
-                <FaUser className="w-7 h-7 text-primary" />
+                <FaUserAstronaut className="w-7 h-7" />
               )}
               {notification.type === "like" && (
-                <FaHeart className="w-7 h-7 text-red-500" />
+                <PiHeartFill className="w-7 h-7" />
               )}
               <Link to={`/profile/${notification.from.username}`}>
                 <div className="avatar">

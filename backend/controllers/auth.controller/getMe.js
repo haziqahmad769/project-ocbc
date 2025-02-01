@@ -9,7 +9,7 @@ const getMe = async (req, res) => {
     }
 
     const query = `
-      SELECT u.id, u.username, u.full_name, u.email, u.bio, u.link, 
+      SELECT u.id, u.username, u.full_name, u.email, u.bio, u.link, u.phone_number, u.business_type, u.business_location, u.is_admin, 
              f.path AS profile_img, 
              u.created_at, u.updated_at
       FROM users u
@@ -51,6 +51,10 @@ const getMe = async (req, res) => {
       username: user.username,
       fullName: user.full_name,
       email: user.email,
+      phoneNumber: user.phone_number,
+      businessType: user.business_type,
+      businessLocation: user.business_location,
+      isAdmin: user.is_admin,
       followers: followers, // Array of user IDs
       following: following, // Array of user IDs
       profileImg: user.profile_img

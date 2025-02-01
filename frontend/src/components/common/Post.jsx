@@ -1,7 +1,5 @@
-import { FaRegComment } from "react-icons/fa";
-import { BiRepost } from "react-icons/bi";
-import { FaRegHeart } from "react-icons/fa";
-import { FaRegBookmark } from "react-icons/fa6";
+import { FaComment } from "react-icons/fa6";
+import { PiHeartFill } from "react-icons/pi";
 import { FaTrash } from "react-icons/fa";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -146,7 +144,7 @@ const Post = ({ post }) => {
         <div className="avatar">
           <Link
             to={`/profile/${postOwner.username}`}
-            className="w-8 rounded-full overflow-hidden"
+            className="w-8 h-8 rounded-full overflow-hidden"
           >
             <img src={postOwner.profileImg || "/avatar-placeholder.png"} />
           </Link>
@@ -186,8 +184,8 @@ const Post = ({ post }) => {
               />
             )}
           </div>
-          <div className="flex justify-between mt-3">
-            <div className="flex gap-4 items-center w-2/3 justify-between">
+          <div className="flex justify-end mt-3">
+            <div className="flex gap-4 items-center w-2/3 justify-end">
               <div
                 className="flex gap-1 items-center cursor-pointer group"
                 onClick={() =>
@@ -196,7 +194,7 @@ const Post = ({ post }) => {
                     .showModal()
                 }
               >
-                <FaRegComment className="w-4 h-4  text-slate-500 group-hover:text-sky-400" />
+                <FaComment className="w-4 h-4  text-slate-500 group-hover:text-sky-400" />
                 <span className="text-sm text-slate-500 group-hover:text-sky-400">
                   {post.comments.length}
                 </span>
@@ -207,11 +205,10 @@ const Post = ({ post }) => {
                 className="modal border-none outline-none"
               >
                 <div className="modal-box rounded border border-gray-600">
-                  <h3 className="font-bold text-lg mb-4">COMMENTS</h3>
                   <div className="flex flex-col gap-3 max-h-60 overflow-auto">
                     {post.comments.length === 0 && (
                       <p className="text-sm text-slate-500">
-                        No comments yet 🤔 Be the first one 😉
+                        No comments yet. Be the first one
                       </p>
                     )}
                     {post.comments.map((comment) => (
@@ -259,22 +256,16 @@ const Post = ({ post }) => {
                   <button className="outline-none">close</button>
                 </form>
               </dialog>
-              <div className="flex gap-1 items-center group cursor-pointer">
-                <BiRepost className="w-6 h-6  text-slate-500 group-hover:text-green-500" />
-                <span className="text-sm text-slate-500 group-hover:text-green-500">
-                  0
-                </span>
-              </div>
               <div
                 className="flex gap-1 items-center group cursor-pointer"
                 onClick={handleLikePost}
               >
                 {isLiking && <LoadingSpinner size="sm" />}
                 {!isLiked && !isLiking && (
-                  <FaRegHeart className="w-4 h-4 cursor-pointer text-slate-500 group-hover:text-pink-500" />
+                  <PiHeartFill className="w-4 h-4 cursor-pointer text-slate-500 group-hover:text-pink-500" />
                 )}
                 {isLiked && !isLiking && (
-                  <FaRegHeart className="w-4 h-4 cursor-pointer text-pink-500 " />
+                  <PiHeartFill className="w-4 h-4 cursor-pointer text-pink-500 " />
                 )}
 
                 <span
@@ -285,9 +276,6 @@ const Post = ({ post }) => {
                   {post.likes.length}
                 </span>
               </div>
-            </div>
-            <div className="flex w-1/3 justify-end gap-2 items-center">
-              <FaRegBookmark className="w-4 h-4 text-slate-500 cursor-pointer" />
             </div>
           </div>
         </div>
