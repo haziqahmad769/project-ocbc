@@ -10,7 +10,7 @@ import { MdDriveFileRenameOutline } from "react-icons/md";
 import { MdOutlinePhoneAndroid } from "react-icons/md";
 import { MdBusinessCenter } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
-import { FaCircleArrowLeft } from "react-icons/fa6";
+import { FaArrowLeft } from "react-icons/fa6";
 
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
@@ -124,7 +124,7 @@ const SignUpPage = () => {
                   <input
                     type="text"
                     className="grow"
-                    placeholder="Full Name"
+                    placeholder="Name"
                     name="fullName"
                     onChange={handleInputChange}
                     value={formData.fullName}
@@ -160,7 +160,7 @@ const SignUpPage = () => {
                   className="btn btn-circle btn-ghost"
                   onClick={() => setPage(1)}
                 >
-                  <FaCircleArrowLeft className="h-6 w-6"/>
+                  <FaArrowLeft className="h-6 w-6"/>
                 </button>
             
               <label className="input input-bordered rounded flex items-center gap-2">

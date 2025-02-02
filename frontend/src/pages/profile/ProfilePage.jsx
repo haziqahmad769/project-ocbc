@@ -11,6 +11,8 @@ import { FaArrowLeft } from "react-icons/fa6";
 import { IoCalendarOutline } from "react-icons/io5";
 import { FaLink } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
+import { MdBusinessCenter } from "react-icons/md";
+import { FaLocationDot } from "react-icons/fa6";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { formatMemberSinceDate } from "../../utils/date";
 
@@ -24,6 +26,7 @@ const ProfilePage = () => {
   const profileImgRef = useRef(null);
 
   const { username } = useParams();
+
   const { follow, isPending } = useFollow();
   const queryClient = useQueryClient();
   const { data: authUser } = useQuery({ queryKey: ["authUser"] });
@@ -198,7 +201,7 @@ const ProfilePage = () => {
               </div>
 
               <div className="flex flex-col items-center gap-4 mt-4 px-4">
-                <div className="flex flex-col">
+                <div className="flex flex-col items-center">
                   <span className="font-bold text-lg">{user?.fullName}</span>
                   <span className="text-sm text-slate-500">
                     @{user?.username}
@@ -206,7 +209,35 @@ const ProfilePage = () => {
                   <span className="text-sm my-1">{user?.bio}</span>
                 </div>
 
-                <div className="flex gap-2 flex-wrap">
+                {/* Business type & business location */}
+                <div className="flex gap-2 flex-wrap justify-center">
+                  <div className="flex gap-1 items-center">
+                    {user?.businessType && (
+                      <div className="flex gap-1 items-center ">
+                        <>
+                          <MdBusinessCenter className="w-3 h-3 text-slate-500" />
+                          <span className="text-sm text-slate-500">
+                            {user?.businessType}
+                          </span>
+                        </>
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex gap-2 items-center">
+                    {user?.businessLocation && (
+                      <div className="flex gap-1 items-center ">
+                        <>
+                          <FaLocationDot className="w-3 h-3 text-slate-500" />
+                          <span className="text-sm text-slate-500">
+                            {user?.businessLocation}
+                          </span>
+                        </>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex gap-2 flex-wrap justify-center">
                   {user?.link && (
                     <div className="flex gap-1 items-center ">
                       <>
@@ -228,46 +259,6 @@ const ProfilePage = () => {
                       {memberSinceDate}
                     </span>
                   </div>
-                </div>
-
-                {/* Phone number, business type & business location */}
-                <div className="flex gap-2 flex-wrap">
-                  <div className="flex gap-2 items-center">
-                    {user?.businessType && (
-                      <div className="flex gap-1 items-center ">
-                        <>
-                          <FaLink className="w-3 h-3 text-slate-500" />
-                          <span className="text-sm text-slate-500">
-                            {user?.businessType}
-                          </span>
-                        </>
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex gap-2 items-center">
-                    {user?.businessLocation && (
-                      <div className="flex gap-1 items-center ">
-                        <>
-                          <FaLink className="w-3 h-3 text-slate-500" />
-                          <span className="text-sm text-slate-500">
-                            {user?.businessLocation}
-                          </span>
-                        </>
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <div>
-                  {user?.phoneNumber && (
-                    <div className="flex gap-2 items-center ">
-                      <>
-                        <FaLink className="w-3 h-3 text-slate-500" />
-                        <span className="text-sm text-slate-500">
-                          {user?.phoneNumber}
-                        </span>
-                      </>
-                    </div>
-                  )}
                 </div>
 
                 <div className="flex gap-2">

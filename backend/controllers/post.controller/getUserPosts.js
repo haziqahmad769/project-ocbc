@@ -69,7 +69,7 @@ const getUserPosts = async (req, res) => {
     const postsResult = await pool.query(userPostsQuery, [user.user_id]);
 
     const posts = postsResult.rows.map((post) => ({
-      _id: post.post_id,
+      id: post.post_id,
       user: {
         id: user.user_id,
         username: user.username,
@@ -89,7 +89,15 @@ const getUserPosts = async (req, res) => {
       text: post.text,
       img: post.post_img ? `http://localhost:8585/${post.post_img}` : null,
       likes: post.likes,
-      comments: post.comments,
+      comments: post.comments.map((comment) => ({
+        ...comment,
+        user: {
+          ...comment.user,
+          profileImg: comment.user.profileImg
+            ? `http://localhost:8585/${comment.user.profileImg}`
+            : null,
+        },
+      })),
       createdAt: post.post_created_at,
       updatedAt: post.post_updated_at,
     }));

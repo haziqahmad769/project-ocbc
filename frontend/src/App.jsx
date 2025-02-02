@@ -10,6 +10,7 @@ import { Toaster } from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "./components/common/LoadingSpinner";
 import UsersListPage from "./pages/users/UsersListPage";
+import BottomNavbar from "./components/common/BottomNavbar";
 
 function App() {
   const { data: authUser, isLoading } = useQuery({
@@ -55,6 +56,7 @@ function App() {
   return (
     <div className="flex max-w-6xl mx-auto">
       {authUser && <Sidebar />}
+      
       <Routes>
         <Route
           path="/"
@@ -81,6 +83,7 @@ function App() {
           element={authUser ? <UsersListPage /> : <Navigate to="/login" />}
         />
       </Routes>
+      {authUser && <BottomNavbar />}
       <Toaster />
     </div>
   );

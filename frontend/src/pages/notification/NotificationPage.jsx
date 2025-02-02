@@ -79,7 +79,7 @@ const NotificationPage = () => {
 
   return (
     <>
-      <div className="flex-[4_4_0] border-l border-r border-gray-700 min-h-screen">
+      <div className="flex-[4_4_0] border-l border-r border-gray-700 min-h-screen pb-20">
         <div className="flex justify-end items-center p-4 border-b border-gray-700">
           <div className="dropdown  dropdown-end">
             <div tabIndex={0} role="button" className="m-1">

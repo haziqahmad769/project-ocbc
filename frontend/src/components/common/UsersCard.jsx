@@ -5,6 +5,7 @@ import { BsThreeDots } from "react-icons/bs";
 
 import useFollow from "../../hooks/useFollow";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 
 const UsersCard = ({ user }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -19,16 +20,23 @@ const UsersCard = ({ user }) => {
         {/* User Details */}
         <div className="flex items-center gap-3">
           <div className="avatar">
-            <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-300">
+            <Link
+              to={`/profile/${user.username}`}
+              className="w-12 h-12 rounded-full overflow-hidden bg-gray-300"
+            >
               <img
                 src={user.profileImg || "/avatar-placeholder.png"}
                 alt={user.username}
               />
-            </div>
+            </Link>
           </div>
           <div>
-            <p className="font-bold">{user.fullName}</p>
+            <Link to={`/profile/${user.username}`} className="font-bold">
+              {user.fullName}
+            </Link>
             <p className="text-sm text-gray-500">@{user.username}</p>
+            <p className="text-sm">{user?.businessType}</p>
+            <p className="text-sm">{user?.businessLocation}</p>
           </div>
         </div>
 
@@ -59,12 +67,12 @@ const UsersCard = ({ user }) => {
                 <>
                   <FaLink className=" text-gray-400" />
                   <a
-                    href="https://youtube.com/@asaprogrammer_"
+                    href={user?.link}
                     target="_blank"
                     rel="noreferrer"
                     className="text-blue-400 hover:underline"
                   >
-                    youtube.com/@asaprogrammer_
+                    {user?.link}
                   </a>
                 </>
               </div>

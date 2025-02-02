@@ -2,14 +2,21 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
+import { FaArrowLeft } from "react-icons/fa6";
+
 const EditProfileModal = ({ authUser }) => {
   const queryClient = useQueryClient();
+
+  const [page, setPage] = useState(1);
   const [formData, setFormData] = useState({
     fullName: "",
     username: "",
     email: "",
     bio: "",
     link: "",
+    phoneNumber: "",
+    businessType: "",
+    businessLocation: "",
     newPassword: "",
     currentPassword: "",
   });
@@ -65,6 +72,9 @@ const EditProfileModal = ({ authUser }) => {
         email: authUser?.email || "",
         bio: authUser?.bio || "",
         link: authUser?.link || "",
+        phoneNumber: authUser?.phoneNumber || "",
+        businessType: authUser?.businessType || "",
+        businessLocation: authUser?.businessLocation || "",
         newPassword: "",
         currentPassword: "",
       });
@@ -94,6 +104,12 @@ const EditProfileModal = ({ authUser }) => {
               updatedFormData.append("email", formData.email);
               updatedFormData.append("bio", formData.bio);
               updatedFormData.append("link", formData.link);
+              updatedFormData.append("phoneNumber", formData.phoneNumber);
+              updatedFormData.append("businessType", formData.businessType);
+              updatedFormData.append(
+                "businessLocation",
+                formData.businessLocation
+              );
               updatedFormData.append("newPassword", formData.newPassword);
               updatedFormData.append(
                 "currentPassword",
@@ -102,70 +118,138 @@ const EditProfileModal = ({ authUser }) => {
               updateProfile(updatedFormData);
             }}
           >
-            <div className="flex flex-wrap gap-2">
-              <input
-                type="text"
-                placeholder="Full Name"
-                className="flex-1 input border border-gray-700 rounded p-2 input-md"
-                value={formData.fullName}
-                name="fullName"
-                onChange={handleInputChange}
-              />
-              <input
-                type="text"
-                placeholder="Username"
-                className="flex-1 input border border-gray-700 rounded p-2 input-md"
-                value={formData.username}
-                name="username"
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <input
-                type="email"
-                placeholder="Email"
-                className="flex-1 input border border-gray-700 rounded p-2 input-md"
-                value={formData.email}
-                name="email"
-                onChange={handleInputChange}
-              />
-              <textarea
-                placeholder="Bio"
-                className="flex-1 input border border-gray-700 rounded p-2 input-md"
-                value={formData.bio}
-                name="bio"
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <input
-                type="password"
-                placeholder="Current Password"
-                className="flex-1 input border border-gray-700 rounded p-2 input-md"
-                value={formData.currentPassword}
-                name="currentPassword"
-                onChange={handleInputChange}
-              />
-              <input
-                type="password"
-                placeholder="New Password"
-                className="flex-1 input border border-gray-700 rounded p-2 input-md"
-                value={formData.newPassword}
-                name="newPassword"
-                onChange={handleInputChange}
-              />
-            </div>
-            <input
-              type="text"
-              placeholder="Link"
-              className="flex-1 input border border-gray-700 rounded p-2 input-md"
-              value={formData.link}
-              name="link"
-              onChange={handleInputChange}
-            />
-            <button className="btn btn-primary rounded-full btn-sm text-white">
-              {isUpdatingProfile ? "Updating..." : "Update"}
-            </button>
+            {page === 1 && (
+              <>
+                <div className="flex flex-wrap gap-2">
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    className="flex-1 input border border-gray-700 rounded p-2 input-md"
+                    value={formData.fullName}
+                    name="fullName"
+                    onChange={handleInputChange}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Username"
+                    className="flex-1 input border border-gray-700 rounded p-2 input-md"
+                    value={formData.username}
+                    name="username"
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    className="flex-1 input border border-gray-700 rounded p-2 input-md"
+                    value={formData.email}
+                    name="email"
+                    onChange={handleInputChange}
+                  />
+                  <input
+                    type="text"
+                    className="flex-1 input border border-gray-700 rounded p-2 input-md"
+                    placeholder="Phone Number"
+                    name="phoneNumber"
+                    onChange={handleInputChange}
+                    value={formData.phoneNumber}
+                  />
+                </div>
+
+                {/* Business type & business location */}
+                <div className="flex flex-wrap gap-2">
+                  <label className="flex flex-1 input border border-gray-700 rounded p-2 input-md">
+                    <select
+                      className="grow bg-base-100 outline-none"
+                      name="businessType"
+                      onChange={handleInputChange}
+                      value={formData.businessType}
+                    >
+                      <option value="" disabled selected>
+                        Business Type
+                      </option>
+                      <option value="Agriculture">Agriculture</option>
+                      <option value="Food & Beverage">Food & Beverage</option>
+                      <option value="Retail">Retail</option>
+                    </select>
+                  </label>
+                  <label className="flex flex-1 input border border-gray-700 rounded p-2 input-md">
+                    <select
+                      className="grow bg-base-100 outline-none"
+                      name="businessLocation"
+                      onChange={handleInputChange}
+                      value={formData.businessLocation}
+                    >
+                      <option value="" disabled selected>
+                        Business Location
+                      </option>
+                      <option value="Selangor">Selangor</option>
+                      <option value="Perlis">Perlis</option>
+                      <option value="Johor">Johor</option>
+                    </select>
+                  </label>
+                </div>
+
+                <button
+                  type="button"
+                  className="btn btn-primary rounded-full btn-sm text-white"
+                  onClick={() => setPage(2)}
+                >
+                  Next
+                </button>
+              </>
+            )}
+
+            {page === 2 && (
+              <>
+                <button
+                  type="button"
+                  className="btn btn-circle btn-ghost"
+                  onClick={() => setPage(1)}
+                >
+                  <FaArrowLeft className="h-6 w-6" />
+                </button>
+                <div className="flex flex-wrap gap-2">
+                  <input
+                    type="password"
+                    placeholder="Current Password"
+                    className="flex-1 input border border-gray-700 rounded p-2 input-md"
+                    value={formData.currentPassword}
+                    name="currentPassword"
+                    onChange={handleInputChange}
+                  />
+                  <input
+                    type="password"
+                    placeholder="New Password"
+                    className="flex-1 input border border-gray-700 rounded p-2 input-md"
+                    value={formData.newPassword}
+                    name="newPassword"
+                    onChange={handleInputChange}
+                  />
+                </div>
+
+                <textarea
+                  placeholder="Bio"
+                  className="flex-1 input border border-gray-700 rounded p-2 input-md"
+                  value={formData.bio}
+                  name="bio"
+                  onChange={handleInputChange}
+                />
+
+                <input
+                  type="text"
+                  placeholder="Link"
+                  className="flex-1 input border border-gray-700 rounded p-2 input-md"
+                  value={formData.link}
+                  name="link"
+                  onChange={handleInputChange}
+                />
+                <button className="btn btn-primary rounded-full btn-sm text-white">
+                  {isUpdatingProfile ? "Updating..." : "Update"}
+                </button>
+              </>
+            )}
           </form>
         </div>
         <form method="dialog" className="modal-backdrop">

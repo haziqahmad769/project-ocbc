@@ -80,7 +80,7 @@ const UsersListPage = () => {
   });
 
   return (
-    <div className="flex-[4_4_0] border-l border-r border-gray-700 min-h-screen">
+    <div className="flex-[4_4_0] border-l border-r border-gray-700 min-h-screen pb-20">
       <div className="p-4 border-b border-gray-700"></div>
 
       {isLoading && (
