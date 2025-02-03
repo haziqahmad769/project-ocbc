@@ -113,6 +113,11 @@ const LoginPage = () => {
               Sign up
             </button>
           </Link>
+          <Link to="/forgot-password">
+            <button className="btn btn-link w-full text-slate-700">
+              Forgot password
+            </button>
+          </Link>
         </div>
       </div>
     </div>

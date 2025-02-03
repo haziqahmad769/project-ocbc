@@ -11,6 +11,8 @@ import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "./components/common/LoadingSpinner";
 import UsersListPage from "./pages/users/UsersListPage";
 import BottomNavbar from "./components/common/BottomNavbar";
+import ForgotPassword from "./pages/auth/login/ForgotPassword";
+import ResetPassword from "./pages/auth/login/ResetPassword";
 
 function App() {
   const { data: authUser, isLoading } = useQuery({
@@ -56,7 +58,7 @@ function App() {
   return (
     <div className="flex max-w-6xl mx-auto">
       {authUser && <Sidebar />}
-      
+
       <Routes>
         <Route
           path="/"
@@ -81,6 +83,14 @@ function App() {
         <Route
           path="/users"
           element={authUser ? <UsersListPage /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/forgot-password"
+          element={!authUser ? <ForgotPassword /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/reset-password/:token"
+          element={!authUser ? <ResetPassword /> : <Navigate to="/" />}
         />
       </Routes>
       {authUser && <BottomNavbar />}
