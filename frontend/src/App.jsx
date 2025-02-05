@@ -13,6 +13,7 @@ import UsersListPage from "./pages/users/UsersListPage";
 import BottomNavbar from "./components/common/BottomNavbar";
 import ForgotPassword from "./pages/auth/login/ForgotPassword";
 import ResetPassword from "./pages/auth/login/ResetPassword";
+import AdsManager from "./pages/ad/AdsManager";
 
 function App() {
   const { data: authUser, isLoading } = useQuery({
@@ -38,7 +39,6 @@ function App() {
           throw new Error(data.error || "Something went wrong");
         }
 
-        console.log("authUser is here:", data);
         return data;
       } catch (error) {
         throw new Error(error);
@@ -91,6 +91,10 @@ function App() {
         <Route
           path="/reset-password/:token"
           element={!authUser ? <ResetPassword /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/ads-manager"
+          element={authUser ? <AdsManager /> : <Navigate to="/login" />}
         />
       </Routes>
       {authUser && <BottomNavbar />}

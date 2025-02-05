@@ -80,7 +80,7 @@ const UsersListPage = () => {
   });
 
   return (
-    <div className="flex-[4_4_0] border-l border-r border-gray-700 min-h-screen pb-20">
+    <div className="flex-[4_4_0] border-r border-gray-700 min-h-screen pb-20">
       <div className="p-4 border-b border-gray-700"></div>
 
       {isLoading && (
@@ -90,7 +90,7 @@ const UsersListPage = () => {
       )}
 
       {isError && (
-        <div className="text-center p-4 font-bold text-red-500">
+        <div className="text-center p-4 font-bold">
           Failed to load users
         </div>
       )}

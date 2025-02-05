@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaLink } from "react-icons/fa";
-import { IoMailOutline } from "react-icons/io5";
+// import { IoMailOutline } from "react-icons/io5";
 import { BsThreeDots } from "react-icons/bs";
 
 import useFollow from "../../hooks/useFollow";
@@ -53,14 +53,14 @@ const UsersCard = ({ user }) => {
           <p className="text-sm text-gray-400">{user?.bio}</p>
 
           <div className="flex flex-col mt-2 text-sm">
-            {user?.email && (
+            {/* {user?.email && (
               <div className="flex gap-2 items-center ">
                 <>
                   <IoMailOutline className="text-gray-400" />
                   <span>{user.email}</span>
                 </>
               </div>
-            )}
+            )} */}
 
             {user?.link && (
               <div className="flex gap-2 items-center ">

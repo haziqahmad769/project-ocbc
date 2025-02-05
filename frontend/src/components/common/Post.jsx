@@ -162,7 +162,7 @@ const Post = ({ post }) => {
               <span>·</span>
               <span>{formattedDate}</span>
             </span>
-            {isMyPost && (
+            {(isMyPost || authUser.isAdmin === true) && (
               <span className="flex justify-end flex-1">
                 {!isDeleting && (
                   <FaTrash

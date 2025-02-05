@@ -5,6 +5,7 @@ import { MdNotifications } from "react-icons/md";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { FaUserAstronaut } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
+import { RiAdvertisementFill } from "react-icons/ri";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
@@ -158,6 +159,15 @@ const BottomNavbar = () => {
         </Link>
         
       )} */}
+
+        {authUser.isAdmin === true && isProfilePage ? (
+          <Link to="/ads-manager" className="flex flex-col items-center">
+            <RiAdvertisementFill  className="w-6 h-6" />
+            <span className="text-xs">Ads</span>
+          </Link>
+        ) : (
+          ""
+        )}
 
         {!isProfilePage && authUser ? (
           <Link

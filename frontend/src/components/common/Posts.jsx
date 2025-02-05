@@ -2,6 +2,7 @@ import Post from "./Post";
 import PostSkeleton from "../skeletons/PostSkeleton";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
+import AdsCard from "../../pages/ad/AdsCard";
 
 const Posts = ({ feedType, username, userId }) => {
   const getPostEndpoint = () => {
@@ -72,8 +73,12 @@ const Posts = ({ feedType, username, userId }) => {
       )}
       {!isLoading && !isRefetching && posts && (
         <div className="pb-20">
-          {posts.map((post) => (
-            <Post key={post.id} post={post} />
+          {posts.map((post, index) => (
+            <div key={post.id}>
+              <Post post={post} />
+              {/* Insert AdsCard every 5 posts & Rotate ads */}
+              {(index + 1) % 15 === 0 && <AdsCard index={index} />}
+            </div>
           ))}
         </div>
       )}

@@ -7,6 +7,7 @@ import createCommentsTable from "../models/comment.model.js";
 import createPostLikesTable from "../models/postLike.model.js";
 import createUserFollowsTable from "../models/userFollow.model.js";
 import createNotificationsTable from "../models/notification.model.js";
+import createAdsTable from "../models/ads.model.js";
 
 const { Pool } = pg;
 
@@ -33,13 +34,14 @@ export async function databaseInit() {
     console.log(`Connected to ${name} at ${time}`);
 
     // create database tables
-    await createUsersTable();
     await createFilesTable();
+    await createUsersTable();
     await createPostsTable();
     await createCommentsTable();
     await createPostLikesTable();
     await createUserFollowsTable();
     await createNotificationsTable();
+    await createAdsTable();
   } catch (error) {
     //   promise is rejected
     console.error(error);

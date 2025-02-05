@@ -6,11 +6,12 @@ import userRouter from "./routes/user.js";
 import postRouter from "./routes/posts.js";
 import notificationRouter from "./routes/notifications.js";
 import cors from "cors";
+import adRouter from "./routes/ads.js";
 
 const app = express();
 const PORT = 8585;
 
-app.use(express.json({limit: "5mb"}));
+app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static("uploads"));
 app.use(
@@ -28,6 +29,7 @@ app.use("/", publicRouter);
 app.use("/users", userRouter);
 app.use("/posts", postRouter);
 app.use("/notifications", notificationRouter);
+app.use("/ads", adRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);

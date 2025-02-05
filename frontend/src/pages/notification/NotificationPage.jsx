@@ -28,7 +28,6 @@ const NotificationPage = () => {
           },
         });
         const data = await res.json();
-        console.log(data);
 
         if (!res.ok) {
           throw new Error(data.error || "Something went wrong");
@@ -79,7 +78,7 @@ const NotificationPage = () => {
 
   return (
     <>
-      <div className="flex-[4_4_0] border-l border-r border-gray-700 min-h-screen pb-20">
+      <div className="flex-[4_4_0] border-r border-gray-700 min-h-screen pb-20">
         <div className="flex justify-end items-center p-4 border-b border-gray-700">
           <div className="dropdown  dropdown-end">
             <div tabIndex={0} role="button" className="m-1">
