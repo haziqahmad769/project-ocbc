@@ -1,9 +1,9 @@
-import TLogo from "../svgs/TLogo";
+import TubeLogo from "../svgs/TubeLogo";
 
-import { FaSatelliteDish } from "react-icons/fa6";
+import { FaComments } from "react-icons/fa6";
 import { PiUsersThreeFill } from "react-icons/pi";
 import { MdNotifications } from "react-icons/md";
-import { FaUserAstronaut } from "react-icons/fa";
+import { FaUser } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { BiLogOut } from "react-icons/bi";
 
@@ -17,7 +17,7 @@ const Sidebar = () => {
   const { mutate: logout } = useMutation({
     mutationFn: async () => {
       try {
-        const res = await fetch("http://localhost:8585/logout", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/logout`, {
           method: "POST",
           credentials: "include",
         });
@@ -58,7 +58,7 @@ const Sidebar = () => {
     <div className="hidden md:flex md:flex-[2_2_0] w-18 max-w-52">
       <div className="sticky top-0 left-0 h-screen flex flex-col border-r border-gray-700 w-20 md:w-full">
         <Link to="/" className="flex justify-center md:justify-start">
-          <TLogo className="px-2 w-36 mt-4 rounded-full fill-white" />
+          <TubeLogo className="px-2 w-36 mt-4 rounded-full fill-white" />
         </Link>
         <ul className="flex flex-col gap-3 mt-4">
           <li className="flex justify-center md:justify-start">
@@ -66,7 +66,7 @@ const Sidebar = () => {
               to="/"
               className="flex gap-3 items-center hover:bg-stone-900 transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer"
             >
-              <FaSatelliteDish className="w-8 h-8" />
+              <FaComments className="w-8 h-8" />
               <span className="text-lg hidden md:block">Forum</span>
             </Link>
           </li>
@@ -93,7 +93,7 @@ const Sidebar = () => {
               to={`/profile/${authUser?.username}`}
               className="flex gap-3 items-center hover:bg-stone-900 transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer"
             >
-              <FaUserAstronaut className="w-6 h-6" />
+              <FaUser className="w-6 h-6" />
               <span className="text-lg hidden md:block">Profile</span>
             </Link>
           </li>

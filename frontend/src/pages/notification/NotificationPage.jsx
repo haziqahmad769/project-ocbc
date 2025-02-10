@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import LoadingSpinner from "../../components/common/LoadingSpinner";
 
 import { IoSettingsOutline } from "react-icons/io5";
-import { FaUserAstronaut } from "react-icons/fa";
+import { FaUser } from "react-icons/fa6";
 import { PiHeartFill } from "react-icons/pi";
 import toast from "react-hot-toast";
 
@@ -19,7 +19,7 @@ const NotificationPage = () => {
           throw new Error("You are not logged in");
         }
 
-        const res = await fetch("http://localhost:8585/notifications/", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/notifications/`, {
           method: "GET",
           credentials: "include",
           headers: {
@@ -48,7 +48,7 @@ const NotificationPage = () => {
           throw new Error("You are not logged in");
         }
 
-        const res = await fetch("http://localhost:8585/notifications/", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/notifications/`, {
           method: "DELETE",
           credentials: "include",
           headers: {
@@ -106,7 +106,7 @@ const NotificationPage = () => {
           <div className="border-b border-gray-700" key={notification.id}>
             <div className="flex gap-2 p-4">
               {notification.type === "follow" && (
-                <FaUserAstronaut className="w-7 h-7" />
+                <FaUser className="w-7 h-7" />
               )}
               {notification.type === "like" && (
                 <PiHeartFill className="w-7 h-7" />

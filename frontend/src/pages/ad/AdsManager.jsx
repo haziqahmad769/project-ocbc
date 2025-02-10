@@ -21,7 +21,7 @@ const AdsManager = () => {
           throw new Error("You are not logged in");
         }
 
-        const res = await fetch("http://localhost:8585/ads/all", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/ads/all`, {
           method: "GET",
           credentials: "include",
           headers: {
@@ -62,7 +62,7 @@ const AdsManager = () => {
           formData.append("adImg", adImg);
         }
 
-        const res = await fetch("http://localhost:8585/ads/create", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/ads/create`, {
           method: "POST",
           credentials: "include",
           headers: {
@@ -98,7 +98,7 @@ const AdsManager = () => {
           throw new Error("You are not logged in");
         }
 
-        const res = await fetch(`http://localhost:8585/ads/${id}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/ads/${id}`, {
           method: "DELETE",
           credentials: "include",
           headers: {
@@ -216,7 +216,7 @@ const AdsManager = () => {
               </button>
 
               {/* Ad Text */}
-              <p className="text-white text-center break-words overflow-hidden">
+              <p className="text-white break-words overflow-hidden whitespace-pre-wrap">
                 {ad.text}
               </p>
 

@@ -18,13 +18,13 @@ const getAllAds = async (req, res) => {
       id: ad.id,
       text: ad.text,
       link: ad.link,
-      adImg: ad.ad_img ? `http://localhost:8585/${ad.ad_img}` : null,
+      adImg: ad.ad_img ? `${process.env.SERVER_URL}/${ad.ad_img}` : null,
       createdAt: ad.ad_created_at,
     }));
 
     res.status(200).json(ads);
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(500).json({ message: "Internal server error" });
   }
 };

@@ -31,7 +31,7 @@ const CreatePost = () => {
           formData.append("img", img);
         }
 
-        const res = await fetch("http://localhost:8585/posts/create", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/create`, {
           method: "POST",
           credentials: "include",
           headers: {

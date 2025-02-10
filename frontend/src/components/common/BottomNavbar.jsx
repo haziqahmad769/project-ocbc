@@ -1,9 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
-import { FaImage, FaSatelliteDish } from "react-icons/fa6";
+import { FaImage, FaComments } from "react-icons/fa6";
 import { PiUsersThreeFill } from "react-icons/pi";
 import { MdNotifications } from "react-icons/md";
 import { FaArrowCircleUp } from "react-icons/fa";
-import { FaUserAstronaut } from "react-icons/fa";
+import { FaUser} from "react-icons/fa6";
 import { BiLogOut } from "react-icons/bi";
 import { RiAdvertisementFill } from "react-icons/ri";
 
@@ -28,7 +28,7 @@ const BottomNavbar = () => {
   const { mutate: logout } = useMutation({
     mutationFn: async () => {
       try {
-        const res = await fetch("http://localhost:8585/logout", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/logout`, {
           method: "POST",
           credentials: "include",
         });
@@ -76,7 +76,7 @@ const BottomNavbar = () => {
           formData.append("img", img);
         }
 
-        const res = await fetch("http://localhost:8585/posts/create", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/create`, {
           method: "POST",
           credentials: "include",
           headers: {
@@ -130,7 +130,7 @@ const BottomNavbar = () => {
 
         {!isHomePage ? (
           <Link to="/" className="flex flex-col items-center">
-            <FaSatelliteDish className="w-6 h-6" />
+            <FaComments className="w-6 h-6" />
             <span className="text-xs">Forum</span>
           </Link>
         ) : (
@@ -174,7 +174,7 @@ const BottomNavbar = () => {
             to={`/profile/${authUser?.username}`}
             className="flex flex-col items-center"
           >
-            <FaUserAstronaut className="w-6 h-6" />
+            <FaUser className="w-6 h-6" />
             <span className="text-xs">Profile</span>
           </Link>
         ) : (

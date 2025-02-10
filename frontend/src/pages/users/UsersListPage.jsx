@@ -19,7 +19,7 @@ const UsersListPage = () => {
           throw new Error("You are not logged in");
         }
 
-        const res = await fetch("http://localhost:8585/users/all", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/users/all`, {
           method: "GET",
           credentials: "include",
           headers: {
@@ -49,7 +49,7 @@ const UsersListPage = () => {
         }
 
         const res = await fetch(
-          `http://localhost:8585/users/follow/${userId}`,
+          `${import.meta.env.VITE_API_URL}/users/follow/${userId}`,
           {
             method: "POST",
             credentials: "include",
@@ -90,9 +90,7 @@ const UsersListPage = () => {
       )}
 
       {isError && (
-        <div className="text-center p-4 font-bold">
-          Failed to load users
-        </div>
+        <div className="text-center p-4 font-bold">Failed to load users</div>
       )}
 
       {users?.length === 0 && (

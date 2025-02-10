@@ -40,9 +40,8 @@ const getAllUsers = async (req, res) => {
           ORDER BY RANDOM();
         `;
 
-    const { rows } = await pool.query(query);
-
-    const formattedUsers = rows.map((user) => ({
+    const queryResult = await pool.query(query);
+    const formattedUsers = queryResult.rows.map((user) => ({
       id: user.id,
       username: user.username || "",
       fullName: user.fullName || "",
@@ -54,7 +53,7 @@ const getAllUsers = async (req, res) => {
       followers: user.followers || [],
       following: user.following || [],
       profileImg: user.profileImg
-        ? `http://localhost:8585/${user.profileImg}`
+        ? `${process.env.SERVER_URL}/${user.profileImg}`
         : "",
       bio: user.bio || "",
       link: user.link || "",

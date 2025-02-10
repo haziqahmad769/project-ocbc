@@ -52,7 +52,7 @@ const getUserProfile = async (req, res) => {
       followers: followers, // Array of user IDs
       following: following, // Array of user IDs
       profileImg: user.profile_img
-        ? `http://localhost:8585/${user.profile_img}`
+        ? `${process.env.SERVER_URL}/${user.profile_img}`
         : null, // Full URL for profile image
       bio: user.bio,
       link: user.link,

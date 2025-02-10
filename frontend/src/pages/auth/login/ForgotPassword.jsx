@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import TLogo from "../../../components/svgs/TLogo";
+import TubeLogo from "../../../components/svgs/TubeLogo";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -14,7 +14,7 @@ const ForgotPassword = () => {
   } = useMutation({
     mutationFn: async ({ email }) => {
       try {
-        const res = await fetch("http://localhost:8585/forgot-password", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/forgot-password`, {
           method: "POST",
           credentials: "include",
           headers: {
@@ -54,7 +54,7 @@ const ForgotPassword = () => {
           className="lg:w-2/3 mx-auto md:mx-20 flex gap-4 flex-col"
           onSubmit={handleSubmit}
         >
-          <TLogo className="w-48 fill-white" />
+          <TubeLogo className="w-48 fill-white" />
           <label className="input input-bordered rounded flex items-center gap-2">
             <input
               type="email"

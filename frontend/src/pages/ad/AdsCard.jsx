@@ -11,7 +11,7 @@ const AdsCard = ({ index }) => {
           throw new Error("You are not logged in");
         }
 
-        const res = await fetch("http://localhost:8585/ads/all", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/ads/all`, {
           method: "GET",
           credentials: "include",
           headers: {
@@ -39,15 +39,31 @@ const AdsCard = ({ index }) => {
   if (!ad) return null;
 
   return (
-    <div className="bg-gray-800 border border-gray-700 p-4 rounded-md my-4 w-full max-w-lg mx-auto">
-      <a href={ad?.link} target="_blank" rel="noreferrer" className="block">
-        <img
-          src={ad?.adImg}
-          alt="Advertisement"
-          className="w-full h-48 object-cover rounded-md"
-        />
-        <p className="text-white mt-2 font-bold text-center">{ad?.text}</p>
-      </a>
+    <div className=" border-b border-gray-700 p-4 w-full">
+      <div className="flex bg-gray-800 p-4 rounded-md">
+        <a
+          href={ad?.link}
+          target="_blank"
+          rel="noreferrer"
+          className="flex flex-col justify-center items-center"
+        >
+          <img
+            src={ad?.adImg}
+            alt="Advertisement"
+            className="w-48 object-cover rounded-md"
+          />
+          <p className="text-white mt-2 font-bold  whitespace-pre-wrap">
+            {ad?.text}
+          </p>
+
+          <button
+            className="btn btn-primary rounded-full btn-sm text-white px-4 m-4"
+            href={ad?.link}
+          >
+            KLIK SINI
+          </button>
+        </a>
+      </div>
     </div>
   );
 };

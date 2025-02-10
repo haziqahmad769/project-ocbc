@@ -79,18 +79,18 @@ const getLikedPosts = async (req, res) => {
         username: post.post_user_username,
         fullName: post.post_user_full_name,
         profileImg: post.post_img
-          ? `http://localhost:8585/${post.post_img}`
+          ? `${process.env.SERVER_URL}/${post.post_img}`
           : null,
       },
       text: post.text,
-      img: post.post_img ? `http://localhost:8585/${post.post_img}` : null,
+      img: post.post_img ? `${process.env.SERVER_URL}/${post.post_img}` : null,
       likes: post.likes,
       comments: post.comments.map((comment) => ({
         ...comment,
         user: {
           ...comment.user,
           profileImg: comment.user.profileImg
-            ? `http://localhost:8585/${comment.user.profileImg}`
+            ? `${process.env.SERVER_URL}/${comment.user.profileImg}`
             : null,
         },
       })),

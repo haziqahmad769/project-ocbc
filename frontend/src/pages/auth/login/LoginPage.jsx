@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import TLogo from "../../../components/svgs/TLogo";
+import TubeLogo from "../../../components/svgs/TubeLogo";
 
 import { MdOutlineMail } from "react-icons/md";
 import { MdPassword } from "react-icons/md";
@@ -25,7 +25,7 @@ const LoginPage = () => {
   } = useMutation({
     mutationFn: async ({ email, password }) => {
       try {
-        const res = await fetch("http://localhost:8585/login", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
           method: "POST",
           credentials: "include",
           headers: {
@@ -69,11 +69,11 @@ const LoginPage = () => {
   return (
     <div className="max-w-screen-xl mx-auto flex h-screen">
       <div className="flex-1 hidden lg:flex items-center  justify-center">
-        <TLogo className="lg:w-2/3 fill-white" />
+        <TubeLogo className="lg:w-2/3 fill-white" />
       </div>
       <div className="flex-1 flex flex-col justify-center items-center">
         <form className="flex gap-4 flex-col" onSubmit={handleSubmit}>
-          <TLogo className="w-48 lg:hidden fill-white" />
+          <TubeLogo className="w-48 lg:hidden fill-white" />
           <h1 className="text-4xl font-extrabold text-white">
             {"Get"} updated!
           </h1>

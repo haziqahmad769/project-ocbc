@@ -28,7 +28,7 @@ const Post = ({ post }) => {
           throw new Error("You are not logged in");
         }
 
-        const res = await fetch(`http://localhost:8585/posts/${post.id}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${post.id}`, {
           method: "DELETE",
           credentials: "include",
           headers: {
@@ -60,7 +60,7 @@ const Post = ({ post }) => {
           throw new Error("You are not logged in");
         }
 
-        const res = await fetch(`http://localhost:8585/posts/${post.id}/like`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${post.id}/like`, {
           method: "POST",
           credentials: "include",
           headers: {
@@ -94,7 +94,7 @@ const Post = ({ post }) => {
         }
 
         const res = await fetch(
-          `http://localhost:8585/posts/${post.id}/comment`,
+          `${import.meta.env.VITE_API_URL}/posts/${post.id}/comment`,
           {
             method: "POST",
             credentials: "include",
@@ -176,7 +176,7 @@ const Post = ({ post }) => {
             )}
           </div>
           <div className="flex flex-col gap-3 overflow-hidden">
-            <span>{post.text}</span>
+            <span className="whitespace-pre-wrap">{post.text}</span>
             {post.img && (
               <img
                 src={post.img}
@@ -200,6 +200,7 @@ const Post = ({ post }) => {
                   {post.comments.length}
                 </span>
               </div>
+
               {/* We're using Modal Component from DaisyUI */}
               <dialog
                 id={`comments_modal${post.id}`}

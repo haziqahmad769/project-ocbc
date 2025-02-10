@@ -45,7 +45,7 @@ const ProfilePage = () => {
           throw new Error("You are not logged in");
         }
 
-        const res = await fetch(`http://localhost:8585/users/${username}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/users/${username}`, {
           method: "GET",
           credentials: "include",
           headers: {
@@ -79,7 +79,7 @@ const ProfilePage = () => {
           formData.append("profileImg", profileImg);
         }
 
-        const res = await fetch("http://localhost:8585/users/update", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/users/update`, {
           method: "PUT",
           credentials: "include",
           headers: {

@@ -80,7 +80,7 @@ const getAllPosts = async (req, res) => {
         followers: [], // followers and following are not needed here
         following: [],
         profileImg: post.profile_img
-          ? `http://localhost:8585/${post.profile_img}`
+          ? `${process.env.SERVER_URL}/${post.profile_img}`
           : null,
         bio: post.bio,
         link: post.link,
@@ -89,14 +89,14 @@ const getAllPosts = async (req, res) => {
         likedPosts: [], // likedPosts can be populated in another query or removed if not required
       },
       text: post.text,
-      img: post.post_img ? `http://localhost:8585/${post.post_img}` : null,
+      img: post.post_img ? `${process.env.SERVER_URL}/${post.post_img}` : null,
       likes: post.likes,
       comments: post.comments.map((comment) => ({
         ...comment,
         user: {
           ...comment.user,
           profileImg: comment.user.profileImg
-            ? `http://localhost:8585/${comment.user.profileImg}`
+            ? `${process.env.SERVER_URL}/${comment.user.profileImg}`
             : null,
         },
       })),

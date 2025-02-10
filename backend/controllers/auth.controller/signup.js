@@ -1,6 +1,7 @@
 import { pool } from "../../db/connectPostgres.js";
 import { validateEmail } from "../../utils/helper.js";
 import bcrypt from "bcrypt";
+import subscribeToNewsletter from "../../utils/newsletter.js";
 
 const signup = async (req, res) => {
   try {
@@ -78,6 +79,8 @@ const signup = async (req, res) => {
       businessType,
       businessLocation,
     ]);
+
+    await subscribeToNewsletter(email, businessType);
 
     return res.status(200).json({
       message: "User registered successfully",

@@ -8,13 +8,13 @@ const Posts = ({ feedType, username, userId }) => {
   const getPostEndpoint = () => {
     switch (feedType) {
       case "forYou":
-        return "http://localhost:8585/posts/all";
+        return `${import.meta.env.VITE_API_URL}/posts/all`;
       case "posts":
-        return `http://localhost:8585/posts/user/${username}`;
+        return `${import.meta.env.VITE_API_URL}/posts/user/${username}`;
       case "likes":
-        return `http://localhost:8585/posts/liked/${userId}`;
+        return `${import.meta.env.VITE_API_URL}/posts/liked/${userId}`;
       default:
-        return "http://localhost:8585/posts/all";
+        return `${import.meta.env.VITE_API_URL}/posts/all`;
     }
   };
 
@@ -76,8 +76,8 @@ const Posts = ({ feedType, username, userId }) => {
           {posts.map((post, index) => (
             <div key={post.id}>
               <Post post={post} />
-              {/* Insert AdsCard every 5 posts & Rotate ads */}
-              {(index + 1) % 15 === 0 && <AdsCard index={index} />}
+              {/* Insert AdsCard every 10 posts & Rotate ads */}
+              {(index + 1) % 10 === 0 && <AdsCard index={index} />}
             </div>
           ))}
         </div>

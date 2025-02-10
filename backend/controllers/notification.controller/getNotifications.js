@@ -34,7 +34,7 @@ const getNotifications = async (req, res) => {
         id: notification.from_user_id,
         username: notification.from_username,
         profileImg: notification.from_profile_img
-          ? `http://localhost:8585/${notification.from_profile_img}`
+          ? `${process.env.SERVER_URL}/${notification.from_profile_img}`
           : null,
       },
       to: notification.to_user_id,

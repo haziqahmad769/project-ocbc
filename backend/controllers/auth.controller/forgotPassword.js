@@ -27,7 +27,7 @@ const forgotPassword = async (req, res) => {
     //   expiresIn: "15m",
     // });
 
-    const resetLink = `http://localhost:5173/reset-password/${token}`;
+    const resetLink = `${process.env.CLIENT_URL}/reset-password/${token}`;
 
     const transporter = nodemailer.createTransport({
       host: process.env.MAIL_HOST,
@@ -39,7 +39,7 @@ const forgotPassword = async (req, res) => {
     });
 
     const mailOptions = {
-      from: "no-reply@tubeupdates.com",
+      from: process.env.MAIL_FROM,
       to: email,
       subject: "Password Reset Request",
       html: `
