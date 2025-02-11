@@ -12,19 +12,19 @@ import createAdsTable from "../models/ads.model.js";
 const { Pool } = pg;
 
 export const pool = new Pool({
-  // host: process.env.PGHOST,
-  // user: process.env.PGUSER,
-  // password: process.env.PGPASSWORD,
-  // database: process.env.PGDATABASE,
-  // //
-  // max: 20,
-  // idleTimeoutMillis: 30000,
-  // connectionTimeoutMillis: 2000,
+  host: process.env.PGHOST,
+  user: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+  database: process.env.PGDATABASE,
+  //
+  max: 20,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 2000,
 
-  connectionString: process.env.DATABASE_URL, // Use DATABASE_URL for Render
-  ssl: {
-    rejectUnauthorized: false, // Required for connecting to Render Postgres
-  },
+  // connectionString: process.env.DATABASE_URL, // Use DATABASE_URL for Render
+  // ssl: {
+  //   rejectUnauthorized: false, // Required for connecting to Render Postgres
+  // },
 });
 
 export async function databaseInit() {
