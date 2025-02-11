@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 8585;
 
 app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ extended: true }));
-app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static(path.join(__dirname,"uploads")));
 app.use(
   cors({
     origin: process.env.CLIENT_URL, // Allow only the frontend origin
